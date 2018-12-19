@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>sockcan 使用指南 - yxrsh</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "sockcan \u4f7f\u7528\u6307\u5357";
+    var mkdocs_page_input_path = "linux/socket_can\u4f7f\u7528\u6307\u5357.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> yxrsh</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../about/">Welcome to MkDocs</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../conan 打包已编译的库/">Conan 打包已编译的库</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../conan使用/">conan使用</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Cpp</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../cpp/C++ STL中容器的使用总结/">c++容器</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Linux</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../git_cmd/">git 常用命令</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../linux常用命令/">linux下查看二进制文件</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">sockcan 使用指南</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#sockcan">sockcan 使用指南</a></li>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../vim快捷键/">vim使用</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../获取线程id及其系统占用的方法(htop)/">获取线程id及其系统占用的方法(htop)</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">yxrsh</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Linux &raquo;</li>
+        
+      
+    
+    <li>sockcan 使用指南</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="sockcan">sockcan 使用指南</h1>
+<ol>
+<li>建立套接字</li>
+</ol>
+<p><code>int fd = socket(PF_CAN, SOCK_RAW, CAN_RAW);
+   if (0 &gt; fd)
+   {
+       perror("socket");
+       return -1;
+   }</code></p>
+<ol>
+<li>绑定端口</li>
+</ol>
+<p>```
+   struct ifreq ifr;
+   memset(&amp;ifr, 0x00, sizeof(struct ifreq));
+   strcpy(ifr.ifr_name, "can0");
+   if (0 &gt; ioctl(fd, SIOCGIFINDEX, &amp;ifr))
+   {
+       perror("ioctl");
+       close(fd);
+       return -1;
+   }</p>
+<p>struct sockaddr_can addr;
+   addr.can_ifindex = ifr.ifr_ifindex;  // 如果要绑定所有端口，可以设置addr.can_ifindex = 0;
+   if (0 &gt; bind(fd, (struct sockaddr *)&amp;addr, sizeof(addr)))
+   {
+       perror("bind");
+       close(fd);
+       return -1;
+   }
+   ```</p>
+<ol>
+<li>滤波设置</li>
+</ol>
+<p>```
+   //方式1、设置一个或多个滤波(示例2个，id_1=0x7df, id_2=0x726)
+   struct can_filter filter[N]; #根据实际需要设置几个滤波值
+   filter[0].can_id = 0x726;
+   filter[0].can_mask = 0x7ff;
+   filter[0].can_id = 0x7df;
+   filter[0].can_mask = 0x7ff;
+   if (0 &gt; setsockopt(fd, SOL_CAN_RAW, CAN_RAW_FILTER, &amp;filter, sizeof(filter)))
+   {
+       perror("setsockopt");
+       close(fd);
+       return -1;
+   }</p>
+<p>// 方式2、设置接收所有报文
+   struct can_filter filter; #根据实际需要设置几个滤波值
+   filter.can_mask = 0x0;   // mask设置为0,不屏蔽任何报文
+   if (0 &gt; setsockopt(fd, SOL_CAN_RAW, CAN_RAW_FILTER, &amp;filter, sizeof(filter)))
+   {
+       perror("setsockopt");
+       close(fd);
+       return -1;
+   }</p>
+<p>// 方式3、设置不接收报文
+   if (0 &gt; setsockopt(fd, SOL_CAN_RAW, CAN_RAW_FILTER, NULL, 0))
+   {
+       perror("setsockopt");
+       close(fd);
+       return -1;
+   }
+   ```</p>
+<ol>
+<li>环回功能</li>
+</ol>
+<p><code>int loopback = 0;    // 0=disable; 1=enable(default); 本地环回功能默认开启
+   if (0 &gt; setsockopt(can_fd, SOL_CAN_RAW, CAN_RAW_LOOPBACK, &amp;loopback, sizeof(loopback)))
+   {
+       perror("setsockopt");
+       close(can_fd);
+       return -1;
+   }</code></p>
+<ol>
+<li>CAN发送</li>
+</ol>
+<p>```
+   // 1、发送标准帧
+   struct can_frame frame;
+   frame.can_id = 0x555;
+   frame.can_dlc = 8;
+   char buf[]="01234567";
+   memcpy(frame.data, buf, 8);
+   write(can_fd, &amp;frame, sizeof(struct can_frame));</p>
+<p>// 2、发送扩展帧
+   struct can_frame frame;
+   frame.can_id = 0x18fe5be8 | CAN_EFF_FLAG;
+   frame.can_dlc = 8;
+   char buf[]="01234567";
+   memcpy(frame.data, buf, 8);
+   write(can_fd, &amp;frame, sizeof(struct can_frame));</p>
+<p>// 3、使用sendto
+   struct ifreq ifr;
+   struct sockaddr_can addr;
+   strcpy(ifr.ifr_name, "can0");
+   ioctl(fd, SIOCGIFINDEX, &amp;ifr);
+   addr.can_ifindex = ifr.ifr_ifindex;
+   addr.can_family  = AF_CAN;
+   struct can_frame frame;
+   int len;
+   int nbytes = sendto(fd, &amp;frame, sizeof(struct can_frame),
+                       0, (struct sockaddr*)&amp;addr, sizeof(addr)); // 当fd绑定所有端口时需要使用sendto指定发送端口
+   ```</p>
+<ol>
+<li>CAN接收</li>
+</ol>
+<p>```
+   // 1、使用read
+   struct can_frame frame;
+   if (0 &lt; read(fd, &amp;frame, sizeof(struct can_frame)))
+   {
+       // 接收数据的处理 <br />
+   }</p>
+<p>// 2、使用recvfrom
+   if (0 &lt; recvfrom(can_fd, &amp;frame, sizeof(struct can_frame), 0, (struct sockaddr*)&amp;addr, &amp;len)) // 当绑定所有端口时需要使用recvfrom指定接收端口
+   {
+    // 接收数据的处理 <br />
+   }
+   ```</p>
+<ol>
+<li>
+<p>CAN linux配置</p>
+</li>
+<li>
+<p>虚拟CAN配置</p>
+<p><code># 创建并启动一个虚拟CAN： vcan0
+ sudo modprobe vcan
+ sudo ip link add dev vcan0 type vcan
+ sudo ip link set up vcan0
+ # 移除vcan0
+ sudo ip link del vcan0</code></p>
+</li>
+<li>
+<p>CAN设置</p>
+<p>```
+ # 设置CAN设备属性
+ ip link set can0 type can help  #获取帮助信息，可以获取到CAN的常规配置参数及方法
+ ip link set can0 up #启动CAN0
+ ip link set can0 down #关闭CAN0，CAN的参数需要在关闭时配置
+ ip link set can0 type can bitrate 500000 #设置波特了500KHz</p>
+<p># 获取CAN设备详情
+ ip -details -statistics link show can0 # 或者 ip -details link show can0</p>
+<p>```</p>
+</li>
+<li>
+<p>头文件</p>
+</li>
+</ol>
+<p><code>#include &lt;sys/ioctl.h&gt;
+   #include &lt;sys/socket.h&gt;
+   #include &lt;linux/can.h&gt;
+   #include &lt;linux/can/raw.h&gt;
+   #include &lt;linux/can/error.h&gt;
+   #include &lt;net/if.h&gt;
+   #include &lt;errno.h&gt;
+   #include &lt;string.h&gt;</code></p>
+<ol>
+<li>can_id的一些标志位</li>
+</ol>
+<p><code>#define CAN_EFF_FLAG 0x80000000U // 扩展帧标识
+   #define CAN_RTR_FLAG 0x40000000U // 远程帧标识
+   #define CAN_ERR_FLAG 0x20000000U // 错误帧标识</code></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../vim快捷键/" class="btn btn-neutral float-right" title="vim使用">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../linux常用命令/" class="btn btn-neutral" title="linux下查看二进制文件"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../linux常用命令/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../vim快捷键/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>

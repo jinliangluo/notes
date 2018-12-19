@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>conan使用 - yxrsh</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "conan\u4f7f\u7528";
+    var mkdocs_page_input_path = "conan\u4f7f\u7528.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> yxrsh</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../about/">Welcome to MkDocs</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../conan 打包已编译的库/">Conan 打包已编译的库</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">conan使用</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#conan">conan使用</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#1">1、 创建包</a></li>
+        
+            <li><a class="toctree-l3" href="#2-bin">2 使用bin文件创建包</a></li>
+        
+            <li><a class="toctree-l3" href="#3">3 上传</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Cpp</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../cpp/C++ STL中容器的使用总结/">c++容器</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Linux</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../linux/git_cmd/">git 常用命令</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../linux/linux常用命令/">linux下查看二进制文件</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../linux/socket_can使用指南/">sockcan 使用指南</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../linux/vim快捷键/">vim使用</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../linux/获取线程id及其系统占用的方法(htop)/">获取线程id及其系统占用的方法(htop)</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">yxrsh</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>conan使用</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="conan">conan使用</h1>
+<h2 id="1">1、 创建包</h2>
+<h3 id="11">1.1、 创建</h3>
+<pre><code class="bash"># -s :源码本地 -i: 不用编译
+$ conan new test/1.0.0@luo/testing -t
+</code></pre>
+
+<h3 id="12">1.2、 生成配置文件</h3>
+<pre><code class="bash">$ conan install . demo/testing
+
+# install 可以指定配置参数
+$ conan create . demo/testing -s build_type=Debug
+$ conan create . demo/testing -o Hello:shared=True -s arch=x86
+$ conan create . demo/testing -pr my_gcc49_debug_profile
+...
+$ conan create ...
+
+# 可以用命令配置某个包
+$ conan install . -s MyPkg:compiler=gcc -s compiler=clang ..
+
+# 可以选择编译成动态库
+$ conan install . -o *:shared=True
+</code></pre>
+
+<h3 id="13">1.3 修改仓库</h3>
+<pre><code class="python"># 选择仓库可以使用self.run
+from conans import ConanFile, CMake, tools
+
+class HelloConan(ConanFile):
+    ...
+    def source(self):
+        self.run(&quot;git clone https://github.com/memsharded/hello.git&quot;)
+        self.run(&quot;cd hello &amp;&amp; git checkout static_shared&quot;)
+
+# 也可以使用git命令
+from conans import ConanFile, CMake, tools
+
+class HelloConan(ConanFile):
+    ...
+    def source(self):
+        git = tools.Git(folder=&quot;hello&quot;)
+        git.clone(&quot;https://github.com/memsharded/hello.git&quot;, &quot;static_shared&quot;)
+        ...
+
+# 还可以使用scm  url
+from conans import ConanFile, CMake, tools
+
+class HelloConan(ConanFile):
+     scm = {
+        &quot;type&quot;: &quot;git&quot;,
+        &quot;subfolder&quot;: &quot;hello&quot;,
+        &quot;url&quot;: &quot;https://github.com/memsharded/hello.git&quot;,
+        &quot;revision&quot;: &quot;static_shared&quot;
+     }
+    ...
+</code></pre>
+
+<h2 id="2-bin">2 使用bin文件创建包</h2>
+<p>​   如果已有编译过的bin文件，不想再按照流程创建包，可以使用下面的办法</p>
+<pre><code class="bash">$ # 先new一个包
+$ conan new caninput/1.0.0@luo/testing --bare
+
+$ # 再将bin文件和头文件copy到当前目录
+$ cp ~/code/test/test.so ~/code/test/test.h .
+
+$ # 再打包即生成了一个可被他人调用的conan包
+$ conan export-pkg . caninput/1.0.0@luo/testing -s os=Linux -s compiler=gcc
+</code></pre>
+
+<h2 id="3">3 上传</h2>
+<pre><code class="bash"># 1. 添加一个仓库到conan CLI, &lt;REMOTE&gt;为自定义的一个名字，唯一标识仓库
+conan remote add &lt;REMOTE&gt; https://conan.minieye.cc/artifactory/api/conan/MinieyeTesting
+# 2. 登录
+conan user -p AP5f*************ZE4dQ -r &lt;REMOTE&gt; luojinliang
+# 3. 上传package， &lt;RECIPE&gt;为包名
+conan upload &lt;RECIPE&gt; -r &lt;REMOTE&gt; --all
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../cpp/C++ STL中容器的使用总结/" class="btn btn-neutral float-right" title="c++容器">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../conan 打包已编译的库/" class="btn btn-neutral" title="Conan 打包已编译的库"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../conan 打包已编译的库/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../cpp/C++ STL中容器的使用总结/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>vim使用 - yxrsh</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "vim\u4f7f\u7528";
+    var mkdocs_page_input_path = "linux/vim\u5feb\u6377\u952e.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> yxrsh</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../about/">Welcome to MkDocs</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../conan 打包已编译的库/">Conan 打包已编译的库</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../conan使用/">conan使用</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Cpp</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../../cpp/C++ STL中容器的使用总结/">c++容器</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">Linux</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../git_cmd/">git 常用命令</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../linux常用命令/">linux下查看二进制文件</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../socket_can使用指南/">sockcan 使用指南</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">vim使用</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#vim">vim使用</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#1-vim">1. Vim的几种模式</a></li>
+        
+            <li><a class="toctree-l4" href="#2-vim">2. 启动Vim</a></li>
+        
+            <li><a class="toctree-l4" href="#3">3. 文档操作</a></li>
+        
+            <li><a class="toctree-l4" href="#4">4. 光标的移动</a></li>
+        
+            <li><a class="toctree-l4" href="#5">5. 插入文本</a></li>
+        
+            <li><a class="toctree-l4" href="#6">6. 剪切复制和寄存器</a></li>
+        
+            <li><a class="toctree-l4" href="#7">7. 查找与替换</a></li>
+        
+            <li><a class="toctree-l4" href="#8">8. 排版</a></li>
+        
+            <li><a class="toctree-l4" href="#9">9. 编辑多个文件</a></li>
+        
+            <li><a class="toctree-l4" href="#10">10. 分屏编辑</a></li>
+        
+            <li><a class="toctree-l4" href="#11">11. 快速编辑</a></li>
+        
+            <li><a class="toctree-l4" href="#12">12. 编辑特殊文件</a></li>
+        
+            <li><a class="toctree-l4" href="#13">13. 编程辅助</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#14">14. 命令行</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#141">14.1 命令行模式下的快捷键：</a></li>
+        
+            <li><a class="toctree-l4" href="#142">14.2 执行外部命令</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#15">15. 其它</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#151">15.1 工作目录</a></li>
+        
+            <li><a class="toctree-l4" href="#152">15.2 一些快捷键（收集中）</a></li>
+        
+            <li><a class="toctree-l4" href="#153">15.3 在线帮助</a></li>
+        
+            <li><a class="toctree-l4" href="#154">15.4 一些小功能</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../获取线程id及其系统占用的方法(htop)/">获取线程id及其系统占用的方法(htop)</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">yxrsh</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Linux &raquo;</li>
+        
+      
+    
+    <li>vim使用</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="vim">vim使用</h1>
+<h2 id="1-vim">1. Vim的几种模式</h2>
+<ul>
+<li>正常模式：可以使用快捷键命令，或按:输入命令行。</li>
+<li>插入模式：可以输入文本，在正常模式下，按i、a、o等都可以进入插入模式。</li>
+<li>可视模式：正常模式下按v可以进入可视模式， 在可视模式下，移动光标可以选择文本。按V进入可视行模式， 总是整行整行的选中。ctrl+v进入可视块模式。</li>
+<li>替换模式：正常模式下，按R进入。</li>
+</ul>
+<h2 id="2-vim">2. 启动Vim</h2>
+<ul>
+<li><code>vim -c cmd file</code> : 在打开文件前，先执行指定的命令；</li>
+<li><code>vim -r file</code> :恢复上次异常退出的文件；</li>
+<li><code>vim -R file:</code> :以只读的方式打开文件，但可以强制保存；</li>
+<li><code>vim -M file</code> :以只读的方式打开文件，不可以强制保存；</li>
+<li><code>vim -y num file</code> :将编辑窗口的大小设为num行；</li>
+<li><code>vim + file:</code> :从文件的末尾开始；</li>
+<li><code>vim +num file:</code> :从第num行开始；</li>
+<li><code>vim +/string file</code> :打开file，并将光标停留在第一个找到的string上。
+   *<code>vim --remote file</code> : 用已有的vim进程打开指定的文件。 如果你不想启用多个vim会话，这个很有用。但要注意， 如果你用vim，会寻找名叫VIM的服务器；如果你已经有一个gvim在运行了， 你可以用<code>gvim --remote file</code>在已有的gvim中打开文件。</li>
+</ul>
+<h2 id="3">3. 文档操作</h2>
+<ul>
+<li><code>:e file</code> :关闭当前编辑的文件，并开启新的文件。 如果对当前文件的修改未保存，vi会警告。</li>
+<li><code>:e! file</code> :放弃对当前文件的修改，编辑新的文件。</li>
+<li><code>:e+file</code> :开始新的文件，并从文件尾开始编辑。</li>
+<li><code>:e+n file</code> :开始新的文件，并从第n行开始编辑。</li>
+<li><code>:enew</code> :编译一个未命名的新文档。(CTRL-W n)</li>
+<li><code>:e</code> :重新加载当前文档。</li>
+<li><code>:e!</code> :重新加载当前文档，并丢弃已做的改动。</li>
+<li><code>:e#或ctrl+^</code> :回到刚才编辑的文件，很实用。</li>
+<li><code>:f或ctrl+g</code> :显示文档名，是否修改，和光标位置。</li>
+<li><code>:f filename</code> :改变编辑的文件名，这时再保存相当于另存为。</li>
+<li><code>gf</code> : 打开以光标所在字符串为文件名的文件。</li>
+<li><code>:w</code> :保存修改。</li>
+<li><code>:n1,n2w filename</code> :选择性保存从某n1行到另n2行的内容。</li>
+<li><code>:wq</code> :保存并退出。</li>
+<li><code>ZZ</code> : 保存并退出。</li>
+<li><code>:x</code> :保存并退出。</li>
+<li><code>:q[uit]</code> ——退出当前窗口。(CTRL-W q或CTRL-W CTRL-Q)</li>
+<li><code>:saveas newfilename</code> :另存为</li>
+<li><code>:browse e</code> : 会打开一个文件浏览器让你选择要编辑的文件。 如果是终端中，则会打开netrw的文件浏览窗口； 如果是gvim，则会打开一个图形界面的浏览窗口。 实际上:browse后可以跟任何编辑文档的命令，如sp等。 用browse打开的起始目录可以由browsedir来设置：</li>
+<li><code>:set browsedir=last</code> :用上次访问过的目录（默认）；</li>
+<li><code>:set browsedir=buffer</code> :用当前文件所在目录；</li>
+<li><code>:set browsedir=current</code> :用当前工作目录；</li>
+<li><code>:Sex</code> :水平分割一个窗口，浏览文件系统；</li>
+<li><code>:Vex</code> :垂直分割一个窗口，浏览文件系统；</li>
+</ul>
+<h2 id="4">4. 光标的移动</h2>
+<h4 id="41">4.1 基本移动</h4>
+<p>以下移动都是在normal模式下。</p>
+<ul>
+<li><code>h</code>或退格: 左移一个字符；</li>
+<li><code>l</code>或空格: 右移一个字符；</li>
+<li><code>j</code> : 下移一行；</li>
+<li><code>k</code> : 上移一行；</li>
+<li><code>gj</code> : 移动到一段内的下一行；</li>
+<li><code>gk</code> : 移动到一段内的上一行；</li>
+<li><code>+</code>或<code>Enter</code> : 把光标移至下一行第一个非空白字符。</li>
+<li><code>-</code> : 把光标移至上一行第一个非空白字符。</li>
+<li><code>w</code> : 前移一个单词，光标停在下一个单词开头；</li>
+<li><code>W</code> : 移动下一个单词开头，但忽略一些标点；</li>
+<li><code>e</code> : 前移一个单词，光标停在下一个单词末尾；
+   <em><code>E</code> : 移动到下一个单词末尾，如果词尾有标点，则移动到标点；
+   </em><code>b</code> : 后移一个单词，光标停在上一个单词开头；</li>
+<li><code>B</code> : 移动到上一个单词开头，忽略一些标点；
+   *<code>ge</code> : 后移一个单词，光标停在上一个单词末尾；</li>
+<li><code>gE</code> : 同 ge ，不过‘单词’包含单词相邻的标点。
+   *<code>(</code> : 前移1句。</li>
+<li><code>)</code> : 后移1句。</li>
+<li><code>{</code> : 前移1段。</li>
+<li><code>}</code> : 后移1段。</li>
+<li><code>fc</code> : 把光标移到同一行的下一个c字符处</li>
+<li><code>Fc</code> : 把光标移到同一行的上一个c字符处</li>
+<li><code>tc</code> : 把光标移到同一行的下一个c字符前</li>
+<li><code>Tc</code> : 把光标移到同一行的上一个c字符后</li>
+<li><code>;</code> : 配合f &amp; t使用，重复一次</li>
+<li><code>,</code> : 配合f &amp; t使用，反向重复一次
+   上面的操作都可以配合n使用，比如在正常模式(下面会讲到)下输入3h， 则光标向左移动3个字符。</li>
+<li><code>0</code> : 移动到行首。</li>
+<li><code>g0</code> : 移到光标所在屏幕行行首。</li>
+<li><code>^</code> : 移动到本行第一个非空白字符。</li>
+<li><code>g^</code> : 同 ^ ，但是移动到当前屏幕行第一个非空字符处。</li>
+<li><code>$</code> : 移动到行尾。</li>
+<li><code>g$</code> : 移动光标所在屏幕行行尾。</li>
+<li><code>n|</code> : 把光标移到递n列上。</li>
+<li><code>nG</code> : 到文件第n行。</li>
+<li><code>:n&lt;cr&gt;</code> :移动到第n行。</li>
+<li><code>:$&lt;cr&gt;</code> :移动到最后一行。</li>
+<li><code>H</code> : 把光标移到屏幕最顶端一行。</li>
+<li><code>M</code> : 把光标移到屏幕中间一行。</li>
+<li><code>L</code> : 把光标移到屏幕最底端一行。</li>
+<li><code>gg</code> : 到文件头部。</li>
+<li><code>G</code> : 到文件尾部。</li>
+</ul>
+<h4 id="42">4.2 翻屏</h4>
+<ul>
+<li><code>ctrl+f</code> : 下翻一屏。</li>
+<li><code>ctrl+b</code> : 上翻一屏。</li>
+<li>`ctrl+d``: 下翻半屏。</li>
+<li><code>ctrl+u</code> : 上翻半屏。</li>
+<li>`ctrl+e``: 向下滚动一行。</li>
+<li>`ctrl+y``: 向上滚动一行。</li>
+<li>`n%``: 到文件n%的位置。</li>
+<li><code>zz</code> : 将当前行移动到屏幕中央。</li>
+<li><code>zt</code> : 将当前行移动到屏幕顶端。</li>
+<li><code>zb</code> : 将当前行移动到屏幕底端。</li>
+</ul>
+<h4 id="43">4.3 标记</h4>
+<p>使用标记可以快速移动。到达标记后，可以用Ctrl+o返回原来的位置。 Ctrl+o和Ctrl+i 很像浏览器上的 后退 和 前进 。</p>
+<ul>
+<li><code>m{a-z}</code> : 标记光标所在位置，局部标记，只用于当前文件。</li>
+<li><code>m{A-Z}</code> : 标记光标所在位置，全局标记。标记之后，退出Vim， 重新启动，标记仍然有效。</li>
+<li><code>{a-z}</code> : 移动到标记位置。</li>
+<li>'{a-z}` : 移动到标记行的行首。</li>
+<li><code>{0-9}</code> ：回到上[2-10]次关闭vim时最后离开的位置。</li>
+<li><code>: 移动到上次编辑的位置。''也可以，不过\</code>精确到列，而''精确到行 。如果想跳转到更老的位置，可以按C-o，跳转到更新的位置用C-i。</li>
+<li><code>`"</code> :移动到上次离开的地方。</li>
+<li><code>`.</code> :移动到最后改动的地方。</li>
+<li><code>:marks</code> :显示所有标记。</li>
+<li><code>:delmarks a b</code> :删除标记a和b。</li>
+<li><code>:delmarks a-c</code> :删除标记a、b和c。</li>
+<li><code>:delmarks a c-f</code> :删除标记a、c、d、e、f。</li>
+<li><code>:delmarks!</code> :删除当前缓冲区的所有标记。</li>
+<li><code>:help mark-motions</code> :查看更多关于mark的知识。</li>
+</ul>
+<h2 id="5">5. 插入文本</h2>
+<h4 id="51">5.1 基本插入</h4>
+<ul>
+<li><code>i</code> : 在光标前插入；一个小技巧：按8，再按i，进入插入模式，输入=， 按esc进入命令模式，就会出现8个=。 这在插入分割线时非常有用，如30i+<esc>就插入了36个+组成的分割线。</li>
+<li><code>I</code> : 在当前行第一个非空字符前插入；</li>
+<li><code>gI</code> : 在当前行第一列插入；</li>
+<li><code>a</code> : 在光标后插入；</li>
+<li><code>A</code> : 在当前行最后插入；</li>
+<li><code>o</code> : 在下面新建一行插入；</li>
+<li><code>O</code> : 在上面新建一行插入；</li>
+<li><code>:r filename</code> :在当前位置插入另一个文件的内容。</li>
+<li><code>:[n]r filename</code> :在第n行插入另一个文件的内容。</li>
+<li><code>:r !date</code> :在光标处插入当前日期与时间。同理，:r !command可以将其它shell命令的输出插入当前文档。</li>
+</ul>
+<h4 id="52">5.2 改写插入</h4>
+<ul>
+<li><code>c[n]w</code> : 改写光标后1(n)个词。</li>
+<li><code>c[n]l</code> : 改写光标后n个字母。</li>
+<li><code>c[n]h</code> : 改写光标前n个字母。</li>
+<li><code>[n]cc</code> : 修改当前[n]行。</li>
+<li><code>[n]s</code> : 以输入的文本替代光标之后1(n)个字符，相当于c[n]l。</li>
+<li><code>[n]S</code> : 删除指定数目的行，并以所输入文本代替之。
+   注意，类似cnw,dnw,ynw的形式同样可以写为ncw,ndw,nyw。</li>
+</ul>
+<h2 id="6">6. 剪切复制和寄存器</h2>
+<h4 id="61">6.1 剪切和复制、粘贴</h4>
+<ul>
+<li><code>[n]x</code> : 剪切光标右边n个字符，相当于d[n]l。</li>
+<li><code>[n]X</code> : 剪切光标左边n个字符，相当于d[n]h。</li>
+<li><code>y</code> : 复制在可视模式下选中的文本。</li>
+<li><code>yy or Y</code> : 复制整行文本。</li>
+<li><code>y[n]w</code> : 复制一(n)个词。</li>
+<li><code>y[n]l</code> : 复制光标右边1(n)个字符。</li>
+<li><code>y[n]h</code> : 复制光标左边1(n)个字符。</li>
+<li><code>y$</code> : 从光标当前位置复制到行尾。</li>
+<li><code>y0</code> : 从光标当前位置复制到行首。</li>
+<li><code>:m,ny&lt;cr&gt;</code> :复制m行到n行的内容。</li>
+<li><code>y1G或ygg</code> : 复制光标以上的所有行。</li>
+<li><code>yG</code> : 复制光标以下的所有行。</li>
+<li><code>yaw</code>和<code>yas</code> ：复制一个词和复制一个句子，即使光标不在词首和句首也没关系。</li>
+<li><code>d</code> : 删除（剪切）在可视模式下选中的文本。</li>
+<li><code>d$ or D</code> : 删除（剪切）当前位置到行尾的内容。</li>
+<li><code>d[n]w</code> : 删除（剪切）1(n)个单词</li>
+<li><code>d[n]l</code> : 删除（剪切）光标右边1(n)个字符。</li>
+<li><code>d[n]h</code> : 删除（剪切）光标左边1(n)个字符。</li>
+<li><code>d0</code> : 删除（剪切）当前位置到行首的内容</li>
+<li><code>[n] dd</code> : 删除（剪切）1(n)行。</li>
+<li><code>:m,nd&lt;cr&gt;</code> :剪切m行到n行的内容。</li>
+<li><code>d1G</code>或<code>dgg</code> : 剪切光标以上的所有行。</li>
+<li><code>dG</code> : 剪切光标以下的所有行。</li>
+<li><code>daw</code>和<code>das</code> ：剪切一个词和剪切一个句子，即使光标不在词首和句首也没关系。</li>
+<li><code>d/f&lt;cr&gt;</code> ：这是一个比较高级的组合命令，它将删除当前位置 到下一个f之间的内容。</li>
+<li><code>p</code> : 在光标之后粘贴。</li>
+<li><code>P</code> : 在光标之前粘贴。</li>
+</ul>
+<h4 id="62">6.2 文本对象</h4>
+<ul>
+<li><code>aw</code> ：一个词</li>
+<li><code>as</code> ：一句。</li>
+<li><code>ap</code> ：一段。</li>
+<li><code>ab</code> ：一块（包含在圆括号中的）。</li>
+<li><code>y, d, c, v</code> :都可以跟文本对象。</li>
+</ul>
+<h4 id="63">6.3 寄存器</h4>
+<ul>
+<li><code>a-z</code> ：都可以用作寄存器名。"ayy把当前行的内容放入a寄存器。</li>
+<li><code>A-Z</code> ：用大写字母索引寄存器，可以在寄存器中追加内容。 如"Ayy把当前行的内容追加到a寄存器中。</li>
+<li><code>:reg</code>  :显示所有寄存器的内容。</li>
+<li><code>""</code> :不加寄存器索引时，默认使用的寄存器。</li>
+<li><code>"*</code> 当前选择缓冲区，<code>"*yy</code> 把当前行的内容放入当前选择缓冲区。</li>
+<li><code>"+</code> :系统剪贴板。<code>"+yy</code> 把当前行的内容放入系统剪贴板。</li>
+</ul>
+<h2 id="7">7. 查找与替换</h2>
+<h4 id="71">7.1 查找</h4>
+<ul>
+<li><code>/something</code> :在后面的文本中查找something。</li>
+<li><code>?something</code> :在前面的文本中查找something。</li>
+<li><code>/pattern/+number</code> :将光标停在包含pattern的行后面第number行上。</li>
+<li><code>/pattern/-number</code> :将光标停在包含pattern的行前面第number行上。</li>
+<li><code>n</code> :向后查找下一个。</li>
+<li><code>N</code> :向前查找下一个。</li>
+<li>可以用grep或vimgrep查找一个模式都在哪些地方出现过，
+   其中:grep是调用外部的grep程序，而:vimgrep是vim自己的查找算法。
+   用法为：<code>:vim[grep]/pattern/[g] [j] files</code>
+   g的含义是如果一个模式在一行中多次出现，则这一行也在结果中多次出现。
+   j的含义是grep结束后，结果停在第j项，默认是停在第一项。
+   vimgrep前面可以加数字限定搜索结果的上限，如
+   *<code>:1vim/pattern/ %</code> 只查找那个模式在本文件中的第一个出现。</li>
+</ul>
+<p>其实vimgrep在读纯文本电子书时特别有用，可以生成导航的目录。
+ 比如电子书中每一节的标题形式为：n. xxxx。你就可以这样：
+ <code>:vim/^d{1,}./ %</code>
+ 然后用:cw或:copen查看结果，可以用C-w H把quickfix窗口移到左侧，
+ 就更像个目录了。</p>
+<h4 id="72">7.2 替换</h4>
+<p><code>:s/old/new</code> - 用new替换当前行第一个old。
+ <code>:s/old/new/g</code> - 用new替换当前行所有的old。
+ <code>:n1,n2s/old/new/g</code> - 用new替换文件n1行到n2行所有的old。
+ <code>:%s/old/new/g</code> - 用new替换文件中所有的old。
+ <code>:%s/^/xxx/g</code> - 在每一行的行首插入xxx，^表示行首。
+ <code>:%s/$/xxx/g</code> - 在每一行的行尾插入xxx，$表示行尾。
+ 所有替换命令末尾加上c，每个替换都将需要用户确认。 如：%s/old/new/gc，加上i则忽略大小写(ignore)。
+ 还有一种比替换更灵活的方式，它是匹配到某个模式后执行某种命令，
+ 语法为 :[range]g/pattern/command
+ 例如 :%g/^ xyz/normal dd。
+ 表示对于以一个空格和xyz开头的行执行normal模式下的dd命令。
+ 关于range的规定为：</p>
+<p>如果不指定range，则表示当前行。
+ <code>m,n</code> : 从m行到n行。
+ <code>0</code> : 最开始一行（可能是这样）。
+ <code>$</code> : 最后一行
+ <code>.</code> : 当前行
+ <code>%</code> : 所有行</p>
+<h4 id="73">7.3 正则表达式</h4>
+<p>高级的查找替换就要用到正则表达式。</p>
+<p><code>\d</code> : 表示十进制数（我猜的）
+ <code>\s</code> : 表示空格
+ <code>\S</code> : 非空字符
+ <code>\a</code> : 英文字母
+ <code>\|</code> : 表示 或
+ <code>\.</code> : 表示.
+ <code>{m,n}</code> : 表示m到n个字符。这要和 \s与\a等连用，如 \a{m,n} 表示m 到n个英文字母。
+ <code>{m,}</code> : 表示m到无限多个字符。
+ <code>**</code> : 当前目录下的所有子目录。
+ <code>:help pattern</code> 得到更多帮助。</p>
+<h2 id="8">8. 排版</h2>
+<h4 id="81">8.1 基本排版</h4>
+<ul>
+<li><code>&lt;&lt;</code> 向左缩进一个shiftwidth</li>
+<li><code>&gt;&gt;</code> 向右缩进一个shiftwidth</li>
+<li><code>:ce(nter)</code> 本行文字居中</li>
+<li><code>:le(ft)</code> 本行文字靠左</li>
+<li><code>:ri(ght)</code> 本行文字靠右</li>
+<li><code>gq</code> 对选中的文字重排，即对过长的文字进行断行</li>
+<li><code>gqq</code> 重排当前行</li>
+<li><code>gqnq</code> 重排n行</li>
+<li><code>gqap</code> 重排当前段</li>
+<li><code>gqnap</code> 重排n段</li>
+<li><code>gqnj</code> 重排当前行和下面n行</li>
+<li><code>gqQ</code> 重排当前段对文章末尾</li>
+<li><code>J</code> 拼接当前行和下一行</li>
+<li><code>gJ</code> 同 <code>J</code> ，不过合并后不留空格。</li>
+</ul>
+<h4 id="82">8.2 拼写检查</h4>
+<ul>
+<li><code>:set spell</code>－开启拼写检查功能</li>
+<li><code>:set nospell</code>－关闭拼写检查功能</li>
+<li><code>]s</code>－移到下一个拼写错误的单词</li>
+<li><code>[s</code>－作用与上一命令类似，但它是从相反方向进行搜索</li>
+<li><code>z=</code>－显示一个有关拼写错误单词的列表，可从中选择</li>
+<li><code>zg</code>－告诉拼写检查器该单词是拼写正确的</li>
+<li><code>zw</code>－与上一命令相反，告诉拼写检查器该单词是拼写错误的</li>
+</ul>
+<h4 id="83">8.3 统计字数</h4>
+<ul>
+<li><code>g ^g</code>可以统计文档字符数，行数。 将光标放在最后一个字符上，用字符数减去行数可以粗略统计中文文档的字数。 以上对 Mac 或 Unix 的文件格式适用。 如果是 Windows 文件格式（即换行符有两个字节），字数的统计方法为： 字符数 - 行数 * 2。</li>
+</ul>
+<h2 id="9">9. 编辑多个文件</h2>
+<h4 id="91">9.1 一次编辑多个文件</h4>
+<p>我们可以一次打开多个文件，如</p>
+<ul>
+<li><code>vi a.txt b.txt c.txt</code>
+   使用:next(:n)编辑下一个文件。</li>
+<li><code>:2n</code> 编辑下2个文件。
+   使用<code>:previous</code>或<code>:N</code>编辑上一个文件。
+   使用<code>:wnext</code>，保存当前文件，并编辑下一个文件。
+   使用<code>:wprevious</code>，保存当前文件，并编辑上一个文件。
+   使用<code>:args</code> 显示文件列表。
+   <code>:n filenames</code>或<code>:args filenames</code> 指定新的文件列表。
+   <code>vi -o filenames</code> 在水平分割的多个窗口中编辑多个文件。
+   <code>vi -O filenames</code> 在垂直分割的多个窗口中编辑多个文件。</li>
+</ul>
+<h4 id="92">9.2 多标签编辑</h4>
+<ul>
+<li><code>vim -p files:</code> 打开多个文件，每个文件占用一个标签页。</li>
+<li><code>:tabe, tabnew</code> -- 如果加文件名，就在新的标签中打开这个文件， 否则打开一个空缓冲区。</li>
+<li><code>^w gf</code> -- 在新的标签页里打开光标下路径指定的文件。</li>
+<li><code>:tabn</code> -- 切换到下一个标签。Control + PageDown，也可以。</li>
+<li><code>:tabp</code> -- 切换到上一个标签。Control + PageUp，也可以。</li>
+<li><code>[n] gt</code> -- 切换到下一个标签。如果前面加了 n ， 就切换到第n个标签。第一个标签的序号就是1。</li>
+<li><code>:tab split</code> -- 将当前缓冲区的内容在新页签中打开。</li>
+<li><code>:tabc[lose]</code> -- 关闭当前的标签页。</li>
+<li><code>:tabo[nly]</code> -- 关闭其它的标签页。</li>
+<li><code>:tabs</code> -- 列出所有的标签页和它们包含的窗口。</li>
+<li><code>:tabm[ove] [N]</code> -- 移动标签页，移动到第N个标签页之后。 如 tabm 0 当前标签页，就会变成第一个标签页。</li>
+</ul>
+<h4 id="93">9.3 缓冲区</h4>
+<ul>
+<li><code>:buffers</code>或<em> <code>:ls</code>或</em> <code>:files</code> 显示缓冲区列表。</li>
+<li><code>ctrl+^</code> ：在最近两个缓冲区间切换。</li>
+<li><code>:bn</code> -- 下一个缓冲区。</li>
+<li><code>:bp</code> -- 上一个缓冲区。</li>
+<li><code>:bl</code> -- 最后一个缓冲区。</li>
+<li><code>:b[n]</code>或* <code>:[n]b</code> -- 切换到第n个缓冲区。</li>
+<li><code>:nbw(ipeout)</code>-- 彻底删除第n个缓冲区。</li>
+<li><code>:nbd(elete)</code>-- 删除第n个缓冲区，并未真正删除，还在unlisted列表中。</li>
+<li><code>:ba[ll]</code>-- 把所有的缓冲区在当前页中打开，每个缓冲区占一个窗口。</li>
+</ul>
+<h2 id="10">10. 分屏编辑</h2>
+<ul>
+<li><code>vim -o file1 file2</code> :水平分割窗口，同时打开file1和file2</li>
+<li><code>vim -O file1 file2</code> :垂直分割窗口，同时打开file1和file2</li>
+</ul>
+<h4 id="101">10.1 水平分割</h4>
+<ul>
+<li><code>:split(:sp)</code> -- 把当前窗水平分割成两个窗口。(CTRL-W s 或 CTRL-W CTRL-S) 注意如果在终端下，CTRL-S可能会冻结终端，请按CTRL-Q继续。</li>
+<li><code>:split filename</code> -- 水平分割窗口，并在新窗口中显示另一个文件。</li>
+<li><code>:nsplit(:nsp)</code>-- 水平分割出一个n行高的窗口。</li>
+<li><code>:[N]new</code> -- 水平分割出一个N行高的窗口，并编辑一个新文件。 (CTRL-W n或 CTRL-W CTRL-N)</li>
+<li><code>ctrl+w f</code> --水平分割出一个窗口，并在新窗口打开名称为光标所在词的文件 。</li>
+<li><code>C-w C-^</code> -- 水平分割一个窗口，打开刚才编辑的文件。</li>
+</ul>
+<h4 id="102">10.2 垂直分割</h4>
+<ul>
+<li><code>:vsplit(:vsp)</code> -- 把当前窗口分割成水平分布的两个窗口。 (CTRL-W v或CTRL CTRL-V)</li>
+<li><code>:[N]vne[w]</code> -- 垂直分割出一个新窗口。</li>
+<li><code>:vertical</code> 水平分割的命令： 相应的垂直分割。</li>
+</ul>
+<h4 id="103">10.3 关闭子窗口</h4>
+<ul>
+<li><code>:qall</code> -- 关闭所有窗口，退出vim。</li>
+<li><code>:wall</code> -- 保存所有修改过的窗口。</li>
+<li><code>:only</code> -- 只保留当前窗口，关闭其它窗口。(CTRL-W o)</li>
+<li><code>:close</code> -- 关闭当前窗口，CTRL-W c能实现同样的功能。 (象 :q :x同样工作 )</li>
+</ul>
+<h4 id="104">10.4 调整窗口大小</h4>
+<ul>
+<li><code>ctrl+w +</code> --当前窗口增高一行。也可以用n增高n行。</li>
+<li><code>ctrl+w -</code> --当前窗口减小一行。也可以用n减小n行。</li>
+<li><code>ctrl+w _</code> --当前窗口扩展到尽可能的大。也可以用n设定行数。</li>
+<li><code>:resize n</code> -- 当前窗口n行高。</li>
+<li><code>ctrl+w =</code> -- 所有窗口同样高度。</li>
+<li><code>n ctrl+w _</code> -- 当前窗口的高度设定为n行。</li>
+<li><code>ctrl+w &lt;</code> --当前窗口减少一列。也可以用n减少n列。</li>
+<li><code>ctrl+w &gt;</code> --当前窗口增宽一列。也可以用n增宽n列。</li>
+<li><code>ctrl+w |</code> --当前窗口尽可能的宽。也可以用n设定列数。</li>
+</ul>
+<h4 id="105">10.5 切换和移动窗口</h4>
+<p>如果支持鼠标，切换和调整子窗口的大小就简单了。</p>
+<ul>
+<li><code>ctrl+w ctrl+w</code> : 切换到下一个窗口。或者是ctrl+w w。</li>
+<li><code>ctrl+w p</code> : 切换到前一个窗口。</li>
+<li><code>ctrl+w h(l,j,k)</code> :切换到左（右，下，上）的窗口。</li>
+<li><code>ctrl+w t(b)</code> :切换到最上（下）面的窗口。<BR></li>
+<li><code>ctrl+w H(L,K,J)</code> : 将当前窗口移动到最左（右、上、下）面。</li>
+<li><code>ctrl+w r</code> ：旋转窗口的位置。</li>
+<li><code>ctrl+w T</code> : 将当前的窗口移动到新的标签页上。</li>
+</ul>
+<h2 id="11">11. 快速编辑</h2>
+<h4 id="111">11.1 改变大小写</h4>
+<ul>
+<li><code>~</code> : 反转光标所在字符的大小写。
+   可视模式下的U或u：把选中的文本变为大写或小写。
+   gu(U)接范围（如$，或G），可以把从光标当前位置到指定位置之间字母全部 转换成小写或大写。如ggguG，就是把开头到最后一行之间的字母全部变为小 写。再如gu5j，把当前行和下面四行全部变成小写。</li>
+</ul>
+<h4 id="112-normal">11.2 替换（normal模式）</h4>
+<ul>
+<li><code>r</code> : 替换光标处的字符，同样支持汉字。</li>
+<li><code>R</code> : 进入替换模式，按esc回到正常模式。</li>
+</ul>
+<h4 id="113-normal">11.3 撤消与重做（normal模式）</h4>
+<ul>
+<li><code>[n] u</code> : 取消一(n)个改动。</li>
+<li><code>:undo 5</code> -- 撤销5个改变。</li>
+<li><code>:undolist</code> -- 你的撤销历史。</li>
+<li><code>ctrl + r</code> :重做最后的改动。</li>
+<li><code>U</code> : 取消当前行中所有的改动。</li>
+<li><code>:earlier 4m</code> -- 回到4分钟前</li>
+<li><code>:later 55s</code> -- 前进55秒</li>
+</ul>
+<h4 id="114">11.4 宏</h4>
+<ul>
+<li><code>.</code> --重复上一个编辑动作</li>
+<li><code>qa</code> ：开始录制宏a（键盘操作记录）</li>
+<li><code>q</code>：停止录制</li>
+<li><code>@a</code> ：播放宏a</li>
+</ul>
+<h2 id="12">12. 编辑特殊文件</h2>
+<h4 id="121">12.1 文件加解密</h4>
+<ul>
+<li><code>vim -x file</code> : 开始编辑一个加密的文件。</li>
+<li><code>:X</code> -- 为当前文件设置密码。</li>
+<li><code>:set key=</code> -- 去除文件的密码。
+   这里是 滇狐总结的比较高级的vi技巧。</li>
+</ul>
+<h4 id="122">12.2 文件的编码</h4>
+<ul>
+<li><code>:e ++enc=utf8 filename</code>, 让vim用utf-8的编码打开这个文件。</li>
+<li><code>:w ++enc=gbk</code>，不管当前文件什么编码，把它转存成gbk编码。</li>
+<li><code>:set fenc</code>或<code>:set fileencoding</code>，查看当前文件的编码。
+   在vimrc中添加set fileencoding=ucs-bom,utf-8,cp936，vim会根据要打开的文件选择合适的编码。 注意：编码之间不要留空格。 cp936对应于gbk编码。 ucs-bom对应于windows下的文件格式。
+   让vim 正确处理文件格式和文件编码，有赖于 ~/.vimrc的正确配置</li>
+</ul>
+<h4 id="123">12.3 文件格式</h4>
+<p>大致有三种文件格式：unix, dos, mac. 三种格式的区别主要在于回车键的编码：dos 下是回车加换行，unix 下只有 换行符，mac 下只有回车符。</p>
+<ul>
+<li><code>:e ++ff=dos filename</code>, 让vim用dos格式打开这个文件。</li>
+<li><code>:w ++ff=mac filename</code>, 以mac格式存储这个文件。</li>
+<li><code>:set ff</code>，显示当前文件的格式。
+   在vimrc中添加set fileformats=unix,dos,mac，让vim自动识别文件格式。</li>
+</ul>
+<h2 id="13">13. 编程辅助</h2>
+<h4 id="131">13.1 一些按键</h4>
+<ul>
+<li><code>gd</code> : 跳转到局部变量的定义处；</li>
+<li><code>gD</code> : 跳转到全局变量的定义处，从当前文件开头开始搜索；</li>
+<li><code>g;</code> : 上一个修改过的地方；</li>
+<li><code>g,</code> : 下一个修改过的地方；</li>
+<li><code>[[</code> : 跳转到上一个函数块开始，需要有单独一行的{。</li>
+<li><code>]]</code> : 跳转到下一个函数块开始，需要有单独一行的{。</li>
+<li><code>[]</code> : 跳转到上一个函数块结束，需要有单独一行的}。</li>
+<li><code>][</code> : 跳转到下一个函数块结束，需要有单独一行的}。</li>
+<li><code>[{</code> : 跳转到当前块开始处；</li>
+<li><code>]}</code> : 跳转到当前块结束处；</li>
+<li><code>[/</code> : 跳转到当前注释块开始处；</li>
+<li><code>]/</code> : 跳转到当前注释块结束处；</li>
+<li><code>%</code> : 不仅能移动到匹配的(),{}或[]上，而且能在#if，#else， #endif之间跳跃。
+   下面的括号匹配对编程很实用的。</li>
+<li><code>ci', di', yi'</code> ：修改、剪切或复制'之间的内容。</li>
+<li><code>ca', da', ya'</code> ：修改、剪切或复制'之间的内容，包含'。</li>
+<li><code>ci", di", yi"</code> ：修改、剪切或复制"之间的内容。</li>
+<li><code>ca", da", ya"</code> ：修改、剪切或复制"之间的内容，包含"。</li>
+<li><code>ci(, di(, yi(</code> ：修改、剪切或复制()之间的内容。</li>
+<li><code>ca(, da(, ya(</code> ：修改、剪切或复制()之间的内容，包含()。</li>
+<li><code>ci[, di[, yi[</code> ：修改、剪切或复制[]之间的内容。</li>
+<li><code>ca[, da[, ya[</code> ：修改、剪切或复制[]之间的内容，包含[]。</li>
+<li><code>ci{, di{, yi{</code> ：修改、剪切或复制{}之间的内容。</li>
+<li><code>ca{, da{, ya{</code> ：修改、剪切或复制{}之间的内容，包含{}。</li>
+<li><code>ci&lt;, di&lt;, yi&lt;</code> ：修改、剪切或复制&lt;&gt;之间的内容。</li>
+<li><code>ca&lt;, da&lt;, ya&lt;</code> ：修改、剪切或复制&lt;&gt;之间的内容，包含&lt;&gt;。</li>
+</ul>
+<h4 id="132-ctags">13.2 ctags</h4>
+<ul>
+<li><code>ctags -R</code> : 生成tag文件，-R表示也为子目录中的文件生成tags</li>
+<li><code>:set tags=path/tags</code> -- 告诉ctags使用哪个tag文件</li>
+<li><code>:tag xyz</code> -- 跳到xyz的定义处，或者将光标放在xyz上按C-]，返回用C-t</li>
+<li><code>:stag xyz</code> -- 用分割的窗口显示xyz的定义，或者C-w ]， 如果用C-w n ]，就会打开一个n行高的窗口</li>
+<li><code>:ptag xyz</code> -- 在预览窗口中打开xyz的定义，热键是C-w }。</li>
+<li><code>:pclose</code> -- 关闭预览窗口。热键是C-w z。</li>
+<li><code>:pedit abc.h</code> -- 在预览窗口中编辑abc.h</li>
+<li><code>:psearch abc</code> -- 搜索当前文件和当前文件include的文件，显示包含abc的行。
+   有时一个tag可能有多个匹配，如函数重载，一个函数名就会有多个匹配。 这种情况会先跳转到第一个匹配处。</li>
+<li><code>:[n]tnext</code> -- 下一[n]个匹配。</li>
+<li><code>:[n]tprev</code> -- 上一[n]个匹配。</li>
+<li><code>:tfirst</code> -- 第一个匹配</li>
+<li><code>:tlast</code> -- 最后一个匹配</li>
+<li><code>:tselect tagname</code> -- 打开选择列表
+   tab键补齐</li>
+<li><code>:tag xyz&lt;tab&gt;</code> -- 补齐以xyz开头的tag名，继续按tab键，会显示其他的。</li>
+<li><code>:tag /xyz&lt;tab&gt;</code> -- 会用名字中含有xyz的tag名补全。</li>
+</ul>
+<h4 id="133-cscope">13.3 cscope</h4>
+<p>cscope -Rbq: 生成cscope.out文件</p>
+<ul>
+<li><code>:cs add /path/to/cscope.out /your/work/dir</code></li>
+<li><code>:cs find c func</code> -- 查找func在哪些地方被调用</li>
+<li><code>:cw</code> -- 打开quickfix窗口查看结果</li>
+</ul>
+<h4 id="134-gtags">13.4 gtags</h4>
+<p>Gtags综合了ctags和cscope的功能。 使用Gtags之前，你需要安装GNU Gtags。 然后在工程目录运行 gtags 。</p>
+<ul>
+<li><code>:Gtags funcname</code> 定位到 funcname 的定义处。</li>
+<li><code>:Gtags -r funcname</code> 查询 funcname被引用的地方。</li>
+<li><code>:Gtags -s symbol</code> 定位 symbol 出现的地方。</li>
+<li><code>:Gtags -g string Goto string</code> 出现的地方。 :Gtags -gi string 忽略大小写。</li>
+<li><code>:Gtags -f filename</code> 显示 filename 中的函数列表。 你可以用 :Gtags -f % 显示当前文件。</li>
+<li><code>:Gtags -P pattern</code> 显示路径中包含特定模式的文件。 如 :Gtags -P .h$ 显示所有头文件， :Gtags -P /vm/ 显示vm目录下的文件。</li>
+</ul>
+<h4 id="135">13.5 编译</h4>
+<p>vim提供了:make来编译程序，默认调用的是make， 如果你当前目录下有makefile，简单地:make即可。</p>
+<p>如果你没有make程序，你可以通过配置makeprg选项来更改make调用的程序。 如果你只有一个abc.java文件，你可以这样设置：</p>
+<ul>
+<li><code>set makeprg=javac\ abc.java</code>
+   然后:make即可。如果程序有错，可以通过quickfix窗口查看错误。 不过如果要正确定位错误，需要设置好errorformat，让vim识别错误信息。 如：</li>
+<li><code>:setl efm=%A%f:%l:\ %m,%-Z%p^,%-C%.%#</code>
+   %f表示文件名，%l表示行号， %m表示错误信息，其它的还不能理解。 请参考 :help errorformat。</li>
+</ul>
+<h4 id="136">13.6 快速修改窗口</h4>
+<p>其实是quickfix插件提供的功能， 对编译调试程序非常有用 :)</p>
+<ul>
+<li><code>:copen</code> -- 打开快速修改窗口。</li>
+<li><code>:cclose</code> -- 关闭快速修改窗口。
+   快速修改窗口在make程序时非常有用，当make之后：</li>
+<li><code>:cl</code> -- 在快速修改窗口中列出错误。</li>
+<li><code>:cn</code> -- 定位到下一个错误。</li>
+<li><code>:cp</code> -- 定位到上一个错误。</li>
+<li><code>:cr</code>-- 定位到第一个错误。</li>
+</ul>
+<h4 id="137">13.7 自动补全</h4>
+<ul>
+<li><code>C-x C-s</code> -- 拼写建议。</li>
+<li><code>C-x C-v</code> -- 补全vim选项和命令。</li>
+<li><code>C-x C-l</code> -- 整行补全。</li>
+<li><code>C-x C-f</code> -- 自动补全文件路径。弹出菜单后，按C-f循环选择，当然也可以按 C-n和C-p。</li>
+<li><code>C-x C-p</code> 和* <code>C-x C-n</code> -- 用文档中出现过的单词补全当前的词。 直接按C-p和C-n也可以。</li>
+<li><code>C-x C-o</code> -- 编程时可以补全关键字和函数名啊。</li>
+<li><code>C-x C-i</code> -- 根据头文件内关键字补全。</li>
+<li><code>C-x C-d</code> -- 补全宏定义。</li>
+<li><code>C-x C-n</code> -- 按缓冲区中出现过的关键字补全。 直接按C-n或C-p即可。
+   当弹出补全菜单后：</li>
+<li><code>C-p</code> 向前切换成员；</li>
+<li><code>C-n</code> 向后切换成员；</li>
+<li><code>C-e</code> 退出下拉菜单，并退回到原来录入的文字；</li>
+<li><code>C-y</code> 退出下拉菜单，并接受当前选项。</li>
+</ul>
+<h4 id="138">13.8 多行缩进缩出</h4>
+<p>正常模式下，按两下<code>&gt;;</code>光标所在行会缩进。
+ 如果先按了<code>n</code>，再按两下<code>&gt;;</code>，光标以下的n行会缩进。
+ 对应的，按两下<code>&lt;;</code>，光标所在行会缩出。
+ 如果在编辑代码文件，可以用=进行调整。
+ 在可视模式下，选择要调整的代码块，按=，代码会按书写规则缩排好。
+ 或者n =，调整n行代码的缩排。</p>
+<h4 id="139">13.9 折叠</h4>
+<ul>
+<li><code>zf</code> -- 创建折叠的命令，可以在一个可视区域上使用该命令；</li>
+<li><code>zd</code> -- 删除当前行的折叠；</li>
+<li><code>zD</code> -- 删除当前行的折叠；</li>
+<li><code>zfap</code> -- 折叠光标所在的段；</li>
+<li><code>zo</code> -- 打开折叠的文本；</li>
+<li><code>zc</code> -- 收起折叠；</li>
+<li><code>za</code> -- 打开/关闭当前折叠；</li>
+<li><code>zr</code> -- 打开嵌套的折行；</li>
+<li><code>zm</code> -- 收起嵌套的折行；</li>
+<li><code>zR (zO)</code> -- 打开所有折行；</li>
+<li><code>zM (zC)</code> -- 收起所有折行；</li>
+<li><code>zj</code> -- 跳到下一个折叠处；</li>
+<li><code>zk</code> -- 跳到上一个折叠处；</li>
+<li><code>zi</code> -- enable/disable fold;</li>
+</ul>
+<h1 id="14">14. 命令行</h1>
+<p>normal模式下按:进入命令行模式</p>
+<h4 id="141">14.1 命令行模式下的快捷键：</h4>
+<p>上下方向键：上一条或者下一条命令。如果已经输入了部分命令，则找上一 条或者下一条匹配的命令。
+ 左右方向键：左/右移一个字符。</p>
+<ul>
+<li><code>C-w</code>： 向前删除一个单词。</li>
+<li><code>C-h</code>： 向前删除一个字符，等同于Backspace。</li>
+<li><code>C-u</code>： 从当前位置移动到命令行开头。</li>
+<li><code>C-b</code>： 移动到命令行开头。</li>
+<li><code>C-e</code>： 移动到命令行末尾。</li>
+<li><code>Shift-Left</code> ： 左移一个单词。</li>
+<li><code>Shift-Right</code> ： 右移一个单词。</li>
+<li><code>@:</code> 重复上一次的冒号命令。</li>
+<li><code>q：</code> 正常模式下，q然后按':'，打开命令行历史缓冲区， 可以像编辑文件一样编辑命令。
+   q/和q? 可以打开查找历史记录。</li>
+</ul>
+<h4 id="142">14.2 执行外部命令</h4>
+<ul>
+<li><code>:!</code> cmd 执行外部命令。</li>
+<li><code>:!!</code> 执行上一次的外部命令。</li>
+<li><code>:sh</code> 调用shell，用exit返回vim。</li>
+<li><code>:r !cmd</code> 将命令的返回结果插入文件当前位置。</li>
+<li><code>:m,nw !cmd</code> 将文件的m行到n行之间的内容做为命令输入执行命令。</li>
+</ul>
+<h1 id="15">15. 其它</h1>
+<h4 id="151">15.1 工作目录</h4>
+<ul>
+<li><code>:pwd</code> 显示vim的工作目录。</li>
+<li><code>:cd path</code> 改变vim的工作目录。</li>
+<li><code>:set autochdir</code> 可以让vim 根据编辑的文件自动切换工作目录。</li>
+</ul>
+<h4 id="152">15.2 一些快捷键（收集中）</h4>
+<ul>
+<li><code>K</code>: 打开光标所在词的manpage。</li>
+<li><code>*</code>: 向下搜索光标所在词。</li>
+<li><code>g*</code>: 同上，但部分符合即可。</li>
+<li><code>#</code>: 向上搜索光标所在词。</li>
+<li><code>g#</code>: 同上，但部分符合即可。</li>
+<li><code>g C-g</code> : 统计全文或统计部分的字数。</li>
+</ul>
+<h4 id="153">15.3 在线帮助</h4>
+<ul>
+<li><code>:h(elp)</code> 或F1 打开总的帮助。</li>
+<li><code>:help user-manual</code> 打开用户手册。
+   命令帮助的格式为：第一行指明怎么使用那个命令； 然后是缩进的一段解释这个命令的作用，然后是进一步的信息。</li>
+<li><code>:helptags somepath</code> 为somepath中的文档生成索引。</li>
+<li><code>:helpgrep</code> 可以搜索整个帮助文档，匹配的列表显示在quickfix窗口中。</li>
+<li><code>Ctrl+]</code> 跳转到tag主题，Ctrl+t 跳回。</li>
+<li><code>:ver</code> 显示版本信息。</li>
+</ul>
+<h4 id="154">15.4 一些小功能</h4>
+<p>简单计算器: 在插入模式下，输入C-r =，然后输入表达式，就能在 光标处得到计算结果。</p>
+<p>作者：红线路亚湾</p>
+<p>链接：https://www.jianshu.com/p/afcf3ae8b015</p>
+<p>來源：简书</p>
+<p>简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../获取线程id及其系统占用的方法(htop)/" class="btn btn-neutral float-right" title="获取线程id及其系统占用的方法(htop)">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../socket_can使用指南/" class="btn btn-neutral" title="sockcan 使用指南"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../socket_can使用指南/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../获取线程id及其系统占用的方法(htop)/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>
