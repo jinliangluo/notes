@@ -52,7 +52,7 @@
        return -1;
    }
    
-   // 方式2、设置接收所有报文
+   // 方式2、设置接收所有报文（不配置滤波时默认接收所有报文）
    struct can_filter filter; #根据实际需要设置几个滤波值
    filter.can_mask = 0x0;	// mask设置为0,不屏蔽任何报文
    if (0 > setsockopt(fd, SOL_CAN_RAW, CAN_RAW_FILTER, &filter, sizeof(filter)))
