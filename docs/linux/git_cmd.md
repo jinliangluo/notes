@@ -188,9 +188,23 @@ $ git branch -d temp//删除temp
 
 
 
+## 12. 将分支中的文件合并到另一个分支
+
++ 将分支中某个文件的修改同步到另一个分支：
+
+  ```
+  git checkout feature	# 切换到feature分支
+  git checkout --patch master f.txt	#将master分支的f.txt文件同步到feature
+  ```
 
 
 
+## 13. 分支新建并提交远程仓库
+
++ 新建分支：
+  1. 切换到合适的分支, eg: `git checkout x1b_xg_h20_`
+  2. 拉一个新分支: eg: `git branch x1b_xiaoju_`，并切换到新分支:`git checkout x1b_xiaoju_`
+  3. 提交远程仓库：eg: `git push origin x1b_xiaoju_`
 
 
 

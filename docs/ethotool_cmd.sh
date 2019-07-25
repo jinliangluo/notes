@@ -1,0 +1,1 @@
+sudo ethtool -s enx000ec6a92936 speed 100 duplex full autoneg off

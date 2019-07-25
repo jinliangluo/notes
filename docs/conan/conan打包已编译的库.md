@@ -15,6 +15,8 @@
 
 + 根据第一步LibName修改conanfile.py里的名称(`name`)和版本号(`version`)
 
++ 注：更新一个工程的新版本时，不用再次执行此步骤，直接从"2.准备待打包的库"开始即可
+
 
 ### 2. 准备待打包的库
 
@@ -33,6 +35,8 @@ conan create . User/channel # 会生成一个caninput/1.0.0@luo/testing
 ### 4. 上传
 
 打开以下网页https://conan.minieye.cc/artifactory/webapp/#/home，点击 `Set Me Up`下相应的路径可查看上传package的方法；
+
+```eg: conan upload vehicleInfo_h20 -r MinieyePersonal --all```
 
 
 
